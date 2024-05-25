@@ -5,8 +5,12 @@ import uuid
 
 
 def generate_timestamps(
-    base_timestamp: datetime, iso: bool = True
+    base_timestamp: datetime, iso: bool = True, seed: Optional[int] = None
 ) -> list[Union[datetime, str]]:
+
+    if seed is not None:
+        random.seed(seed)
+
     # Define the maximum number of timestamps to generate (between 1 and 5)
     num_timestamps = random.randint(1, 5)
 
@@ -45,7 +49,19 @@ def generate_timestamps(
     return timestamps
 
 
-def add_random_minutes(timestamp, iso=True):
+def add_random_minutes(timestamp, iso=True, seed: Optional[int] = None):
+    """
+    Adds a random number of minutes (between 3 and 17) to a given timestamp.
+
+    :param timestamp: The original timestamp to which random minutes will be added.
+    :param iso: Whether to return the new timestamp in ISO 8601 string format. Defaults to True.
+    :param seed: Optional seed for the random number generator to ensure reproducibility.
+    :return: The new timestamp as a datetime object or ISO 8601 string.
+    """
+
+    if seed is not None:
+        random.seed(seed)
+
     # Generate a random number of minutes to add (between 3 and 17)
     minutes_to_add = random.randint(3, 17)
 
@@ -62,12 +78,27 @@ def add_random_minutes(timestamp, iso=True):
 
 
 def _to_uuid(uuid_str: str) -> uuid.UUID:
+    """
+    Converts a string to a UUID object.
+
+    :param uuid_str: The string representation of the UUID.
+    :return: The UUID object.
+    """
+
     if isinstance(uuid_str, uuid.UUID):
         return uuid_str
     return uuid.UUID(uuid_str)
 
 
 def _to_timestamp(timestamp_str: str, format: Optional[str] = None) -> datetime:
+    """
+    Converts a string to a datetime object.
+
+    :param timestamp_str: The string representation of the timestamp.
+    :param format: Optional format string to parse the timestamp.
+    :return: The datetime object.
+    """
+
     if isinstance(timestamp_str, datetime):
         return timestamp_str
     elif format is not None:
@@ -79,6 +110,13 @@ def _to_timestamp(timestamp_str: str, format: Optional[str] = None) -> datetime:
 
 
 def _generate_new_timestamp(iso=True):
+    """
+    Generates a new current timestamp.
+
+    :param iso: Whether to return the timestamp in ISO 8601 string format. Defaults to True.
+    :return: The current timestamp as a datetime object or ISO 8601 string.
+    """
+
     if iso:
         return datetime.now().isoformat()
     return datetime.now()
