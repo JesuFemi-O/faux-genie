@@ -1,0 +1,62 @@
+[
+  {
+    "name": "iPhone 13",
+    "price": 1099.99
+  },
+  {
+    "name": "Samsung Galaxy S21",
+    "price": 899.99
+  },
+  {
+    "name": "Sony PlayStation 5",
+    "price": 499.99
+  },
+  {
+    "name": "Microsoft Xbox Series X",
+    "price": 499.99
+  },
+  {
+    "name": "Nike Air Max 270",
+    "price": 129.99
+  },
+  {
+    "name": "Adidas Ultraboost",
+    "price": 180.00
+  },
+  {
+    "name": "Apple AirPods Pro",
+    "price": 249.99
+  },
+  {
+    "name": "Sony WH-1000XM4 Headphones",
+    "price": 349.99
+  },
+  {
+    "name": "Nintendo Switch",
+    "price": 299.99
+  },
+  {
+    "name": "Dell XPS 13 Laptop",
+    "price": 1299.99
+  },
+  {
+    "name": "Canon EOS R5 Camera",
+    "price": 3999.99
+  },
+  {
+    "name": "Coca-Cola 12-Pack",
+    "price": 5.99
+  },
+  {
+    "name": "Starbucks Coffee Beans",
+    "price": 12.99
+  },
+  {
+    "name": "Samsung 55-Inch 4K Smart TV",
+    "price": 799.99
+  },
+  {
+    "name": "Fitbit Charge 4",
+    "price": 149.95
+  }
+]
