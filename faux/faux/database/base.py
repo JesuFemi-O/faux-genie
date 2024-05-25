@@ -20,6 +20,12 @@ metadata_obj = MetaData(schema=PROJECT_SCHEMA)
 
 
 def create_schema(engine, schema_name):
+    """
+    Creates a schema in the database if it does not already exist.
+
+    :param engine: The SQLAlchemy engine to use for the connection.
+    :param schema_name: The name of the schema to create.
+    """
     with engine.connect() as conn:
         try:
             conn.execute(CreateSchema(schema_name, if_not_exists=True))
@@ -35,4 +41,11 @@ create_schema(engine, PROJECT_SCHEMA)
 
 
 class Base(DeclarativeBase):
+    """
+    The base class for all declarative models in the project.
+
+    Attributes:
+        metadata (MetaData): The metadata object to use for the base class.
+    """
+
     metadata = metadata_obj

@@ -7,15 +7,27 @@ from pathlib import Path
 import json
 import logging
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
 def table_is_empty(session, model) -> bool:
+    """
+    Checks if a table is empty.
+
+    :param session: The SQLAlchemy session to use for the query.
+    :param model: The model class representing the table to check.
+    :return: True if the table is empty, False otherwise.
+    """
     return session.query(model).count() == 0
 
 
 def seed_products_table():
+    """
+    Seeds the products table with initial data from a JSON file.
+
+    If the table is empty, it loads product data from 'config/products.json'
+    and inserts it into the table. Logs the process.
+    """
     with Session() as session:
         if table_is_empty(session, Product):
             logger.info("Setting up seed data...")
@@ -39,6 +51,12 @@ def seed_products_table():
 
 
 def get_product_ids(num_ids: int) -> list[str]:
+    """
+    Retrieves a specified number of random product IDs from the database.
+
+    :param num_ids: The number of product IDs to retrieve.
+    :return: A list of product IDs as strings.
+    """
     with Session() as session:
         query = select(Product.id).order_by(func.random()).limit(num_ids)
         result = session.execute(query).scalars().all()
@@ -46,6 +64,11 @@ def get_product_ids(num_ids: int) -> list[str]:
 
 
 def write_to_sink(data: list[dict[str, Any]]) -> None:
+    """
+    Writes customer and event data to the database.
+
+    :param data: A list of dictionaries containing customer and event data.
+    """
     logger.info(f"Writing {len(data)} records to DB")
     users = [User(**customer_data["customer"]) for customer_data in data]
     events = [
@@ -62,6 +85,11 @@ def write_to_sink(data: list[dict[str, Any]]) -> None:
 
 
 def start_application():
+    """
+    Starts the application by initializing the database schema and seeding the products table.
+
+    This function creates all tables defined in the Base metadata and seeds the products table.
+    """
     logger.info("Starting DB to initiate data generation")
     Base.metadata.create_all(engine)
     seed_products_table()

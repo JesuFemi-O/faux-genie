@@ -32,6 +32,15 @@ fake = Faker()
 
 
 def generate_customer(dump_mode: str = "json") -> dict:
+    """
+    Generates a fake customer and returns it as a dictionary.
+
+    :param dump_mode: The mode to dump the model. Options are 'json' or 'python'.
+    json returns a dictionary that is json-serializable while python will
+    return a python dictionary with non-json serializable objects like
+    UUID and datetime.
+    :return: A dictionary representation of the generated customer.
+    """
 
     user = User(username=fake.user_name(), email=fake.email(), location=fake.city())
     return dump_model(user, dump_mode)
@@ -40,6 +49,14 @@ def generate_customer(dump_mode: str = "json") -> dict:
 def generate_visit_event(
     customer_id: uuid.UUID, ts: datetime = None, dump_mode: str = "json"
 ) -> dict:
+    """
+    Generates a visit event for a given customer.
+
+    :param customer_id: The unique identifier of the customer.
+    :param ts: Optional timestamp for the event. If not provided, the current time is used.
+    :param dump_mode: The mode to dump the model. Options are 'json' or 'python'.
+    :return: A dictionary representation of the generated visit event.
+    """
     if ts:
         visit = VisitEvent(
             timestamp=ts,
@@ -63,6 +80,14 @@ def generate_cart_update_event(
     qty: Optional[int] = None,
     dump_mode: str = "json",
 ) -> dict:
+    """
+    Generates a visit event for a given customer.
+
+    :param customer_id: The unique identifier of the customer.
+    :param ts: Optional timestamp for the event. If not provided, the current time is used.
+    :param dump_mode: The mode to dump the model. Options are 'json' or 'python'.
+    :return: A dictionary representation of the generated visit event.
+    """
     event_data = (
         AddToCartEventData(item_id=item_id, quantity=qty)
         if event_type == "add_to_cart"
@@ -85,6 +110,16 @@ def generate_checkout_event(
     checked_out_at: datetime,
     dump_mode: str = "json",
 ) -> dict:
+    """
+    Generates a checkout event for a given customer.
+
+    :param customer_id: The unique identifier of the customer.
+    :param order_id: The unique identifier of the order.
+    :param status: The status of the checkout ('success', 'failed', 'cancelled').
+    :param checked_out_at: The timestamp when the checkout occurred.
+    :param dump_mode: The mode to dump the model. Options are 'json' or 'python'.
+    :return: A dictionary representation of the generated checkout event.
+    """
     # use the generated orderId to populate a payments table
     checkout = CheckoutEvent(
         customer_id=customer_id,
