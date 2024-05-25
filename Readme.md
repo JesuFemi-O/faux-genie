@@ -21,6 +21,41 @@ Personally, I have developed Faux-Genie to let me learn/master using tools like 
 - Event Driven Microservices using RabbitMQ*
 - Unit Testing
 
+# Project Structure
+
+```bash
+
+.
+├── Readme.md
+├── aladdin
+├── docker-compose.yml
+├── faux
+│   ├── Readme.md
+│   ├── faux
+│   │   ├── __init__.py
+│   │   ├── config
+│   │   │   └── products.json
+│   │   ├── core
+│   │   │   ├── __init__.py
+│   │   │   ├── faux_utils.py
+│   │   │   └── models.py
+│   │   ├── database
+│   │   │   ├── __init__.py
+│   │   │   ├── base.py
+│   │   │   ├── db_models.py
+│   │   │   └── db_utils.py
+│   │   ├── main.py
+│   │   └── simulator
+│   │       ├── sim_helpers.py
+│   │       └── sim_utils.py
+│   ├── pyproject.toml
+│   ├── requirements.txt
+│   └── test_faux
+├── genie
+└── ideas
+    └── scratchpad.md
+
+```
 
 # Known Limitations
 
